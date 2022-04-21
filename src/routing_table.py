@@ -3,14 +3,13 @@ from typing import List
 class RoutingTableEntry:
     """ A single entry in a routing table, describes routes to a destination """
 
-    def __init__(self, dest_name: str, dest_ip: str, metric: int,
+    def __init__(self, dest_ip: str, metric: int,
                  next_gw_ip: str, rc_flag: bool, timers: int) -> None:
-        self.dest_name: str = dest_name
         self.dest_ip: str = dest_ip
-        self.metric: int = metric  # hop count
+        self.metric: int = metric # hop count
         self.next_gw_ip: str = next_gw_ip
-        self.rc_flag: bool = rc_flag
-        self.timers: int = timers
+        self.rc_flag: bool = rc_flag  # recent change flag
+        self.timers: int = timers # response, timeout, garbage collection
 
 
 class RoutingTable:
@@ -28,4 +27,7 @@ class RoutingTable:
         return
 
     def remove_entry(self):
+        return
+
+    def tick(self):
         return

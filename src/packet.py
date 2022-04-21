@@ -12,8 +12,12 @@ class PacketBodyEntry:
     """ Represents the repeating portion of a RIP protocol packet """
 
     def __init__(self, address_family, ip, metric):
-        self.address_family = address_family  # ip is 2
-        self.ip = ip
+        self.address_family: int = address_family  # IP is 2
+        self.ip = ip                               # can by any of the following
+        # host address
+        # subnet number
+        # network number
+        # 0, indicating a default route
         self.metric = metric
 
 
@@ -23,7 +27,5 @@ class Packet:
     def __init__(self, command: int, version: str, packet_body: List[Type[PacketBodyEntry]]) -> None:
         self.command = command
         self.version = version
-        self.address_family = address_family
-        self.ip = ip
-        self.metric = metric
-        
+        if len(packet_body) >= 25:
+            raise Exception("Cannot have more than 25 elements in a packet body")
