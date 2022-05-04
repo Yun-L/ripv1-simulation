@@ -24,8 +24,9 @@ class PacketBodyEntry:
 class Packet:
     """ Represents a single RIP protocol packet """
 
-    def __init__(self, command: int, version: str, packet_body: List[Type[PacketBodyEntry]]) -> None:
+    def __init__(self, command: Type[Command], version: str, packet_body: List[Type[PacketBodyEntry]]) -> None:
         self.command = command
         self.version = version
         if len(packet_body) >= 25:
             raise Exception("Cannot have more than 25 elements in a packet body")
+        self.packet_body = packet_body
